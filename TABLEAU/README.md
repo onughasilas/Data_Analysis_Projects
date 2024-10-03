@@ -7,10 +7,10 @@ You can view the interactive Tableau dashboard directly on Tableau Online by cli
 
 
 
-#Tableau Project2 (Factors Affecting Student Performance in Mathematics)
+# Tableau Project2 (Factors Affecting Student Performance in Mathematics)
 This Tableau dashboard provides insights into the various factors influencing student performance in mathematics. The analysis evaluates multiple aspects that impact students’ outcomes, such as teacher-student rapport, parental education level, teacher subject mastery, and students' attitudes toward mathematics.
 
-##Key factors explored include:
+## Key factors explored include:
 
 * Teacher-Student Rapport: Examines the relationship quality between students and their teachers and how it correlates with student performance.
 * Parental Education Level: Analyzes how the education level of parents influences their children's performance in mathematics.

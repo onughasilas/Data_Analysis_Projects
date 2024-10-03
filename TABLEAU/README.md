@@ -1,9 +1,11 @@
 
-## Tableau Project1 (Airbnb Dashboard)
+# Tableau Project1 (Airbnb Dashboard)
 This Tableau dashboard provides insights into Airbnb listings and their performance across various locations. It includes key metrics such as average listing prices, occupancy rates, host ratings, and geographical distribution of listings.
 
 You can view the interactive Tableau dashboard directly on Tableau Online by clicking the link below:
 [View the Tableau Dashboard](https://public.tableau.com/views/Airbnd_ListingRate_Project/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
+
+
 
 
 

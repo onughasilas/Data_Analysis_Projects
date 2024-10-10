@@ -1,0 +1,106 @@
+---
+title: "car_sales_project"
+author: "SILAS"
+date: "2024-10-10"
+output: html_document
+---
+# Read the CSV file into R
+# View the first few rows of your data
+```{r}
+car_sales <- read.csv("C:/Users/Administrator/Desktop/car_sales.csv")
+head(data)
+```
+## In order to start cleaning the data, i will need to install the required packages. like `tidyverse`, `skimr`, and `janitor` and `dplyr`.
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+
+install.packages("skimr")
+library(skimr)
+
+install.packages("here")
+library("here")
+
+install.packages("janitor")
+library(janitor)
+library("janitor")
+
+install.packages("dplyr")
+library(dplyr)
+```
+# Summary statistics,summary(data)
+# View the data structure,str(data)
+# Check for missing values,colSums(is.na(data))
+# View the first few rows, head(data)
+## Step 3: Exploring or getting to know the data, 
+```{r}
+head(car_sales)
+str(car_sales)
+glimpse(car_sales)
+summarise(car_sales)
+colnames(car_sales)
+colSums(is.na(car_sales))
+
+skim_without_charts(car_sales)
+```
+```{r}
+# Converting columns to appropriate data types if necessary
+car_sales$Sales_in_thousands <- as.numeric(car_sales$Sales_in_thousands)
+car_sales$Price_in_thousands <- as.numeric(car_sales$Price_in_thousands)
+car_sales$Fuel_efficiency <- as.numeric(car_sales$Fuel_efficiency)
+
+```
+```{r}
+# exploring the data mor
+# Calculating the mean, median, and standard deviation for sales and price
+mean(car_sales$Sales_in_thousands, na.rm = TRUE)
+median(car_sales$Price_in_thousands, na.rm = TRUE)
+sd(car_sales$Fuel_efficiency, na.rm = TRUE)
+
+```
+```{r}
+# Correlation matrix of relevant numeric variables
+numeric_vars <- car_sales[, c("Sales_in_thousands", "Price_in_thousands", "Horsepower", "Fuel_efficiency", "Curb_weight")]
+cor(numeric_vars, use="complete.obs")
+
+```
+```{r}
+# Scatterplot of Price vs Sales
+plot(car_sales$Price_in_thousands, car_sales$Sales_in_thousands,
+     xlab = "Price in Thousands", ylab = "Sales in Thousands",
+     main = "Sales vs Price", col = "blue", pch = 19)
+
+# Boxplot: Vehicle type vs Price
+boxplot(Price_in_thousands ~ Vehicle_type, data = car_sales, 
+        main="Price by Vehicle Type", xlab="Vehicle Type", ylab="Price in Thousands")
+
+```
+```{r}
+# Histogram of Horsepower
+hist(car_sales$Horsepower, main="Distribution of Horsepower", xlab="Horsepower", col="green")
+
+# Histogram of Fuel Efficiency
+hist(car_sales$Fuel_efficiency, main="Distribution of Fuel Efficiency", xlab="Fuel Efficiency (mpg)", col="orange")
+
+```
+```{r}
+# Linear regression model to predict Sales
+lm_model <- lm(Sales_in_thousands ~ Price_in_thousands + Horsepower + Fuel_efficiency, data = car_sales)
+summary(lm_model)
+
+# Plot the residuals of the model
+plot(lm_model)
+
+```
+```{r}
+# Installing and loading the rpart package for decision trees
+install.packages("rpart")
+library(rpart)
+
+# Decision tree to predict vehicle type based on numeric features
+tree_model <- rpart(Vehicle_type ~ Price_in_thousands + Horsepower + Fuel_efficiency, data = car_sales)
+plot(tree_model)
+text(tree_model, use.n = TRUE)
+
+```
+

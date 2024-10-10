@@ -1,0 +1,68 @@
+---
+title: "car_sales_project"
+author: "SILAS"
+date: "2024-10-10"
+output: html_document
+---
+# Read the CSV file into R
+# View the first few rows of your data
+```{r}
+car_sales <- read.csv("C:/Users/Administrator/Desktop/car_sales.csv")
+head(data)
+```
+## In order to start cleaning the data, i will need to install the required packages. like `tidyverse`, `skimr`, and `janitor` and `dplyr`.
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+
+install.packages("skimr")
+library(skimr)
+
+install.packages("here")
+library("here")
+
+install.packages("janitor")
+library(janitor)
+library("janitor")
+
+install.packages("dplyr")
+library(dplyr)
+```
+# Summary statistics,summary(data)
+# View the data structure,str(data)
+# Check for missing values,colSums(is.na(data))
+# View the first few rows, head(data)
+## Step 3: Exploring or getting to know the data, 
+```
+head(car_sales)
+str(car_sales)
+glimpse(car_sales)
+summarise(car_sales)
+colnames(car_sales)
+colSums(is.na(car_sales))
+
+skim_without_charts(car_sales)
+
+```
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

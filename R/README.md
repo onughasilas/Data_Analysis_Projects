@@ -33,25 +33,25 @@ I counted the number of cars by vehicle type using table() to understand the dis
 * What I did: I created a scatterplot to explore how the price of a car impacts sales (Price_in_thousands vs. Sales_in_thousands).
 * Insight: There seems to be an inverse relationship between price and sales—less expensive cars tend to have higher sales, while more expensive models sell less. This trend aligns with consumer affordability, where lower-priced vehicles attract more buyers.
 
-plot(car_sales$Price_in_thousands, car_sales$Sales_in_thousands, 
+```r plot(car_sales$Price_in_thousands, car_sales$Sales_in_thousands, 
      main = "Car Price vs Sales", xlab = "Price in Thousands", 
-     ylab = "Sales in Thousands", col = "blue", pch = 19)
+     ylab = "Sales in Thousands", col = "blue", pch = 19)```
 
 ## 4.3 Sales by Vehicle Type
 * What I did: I summed the total sales for each vehicle type using a bar plot to see which categories are performing the best.
 * Insight: SUVs and Sedans make up the bulk of the sales, with SUVs leading slightly. This indicates that SUVs may currently be the preferred vehicle type in the market.
-  barplot(tapply(car_sales$Sales_in_thousands, car_sales$Vehicle_type, sum), 
+  ```r barplot(tapply(car_sales$Sales_in_thousands, car_sales$Vehicle_type, sum), 
         main = "Total Sales by Vehicle Type", xlab = "Vehicle Type", 
-        ylab = "Total Sales in Thousands", col = "green")
+        ylab = "Total Sales in Thousands", col = "green")```
 ## 4.4 Average Price and Horsepower by Vehicle Type
 * What I did: I calculated the average price and horsepower for each vehicle type to see if certain types are generally more expensive or more powerful.
 * Insight: SUVs and Sports cars have the highest average prices, while Trucks and Sedans tend to be more affordable. As expected, Sports cars have the highest horsepower, followed by SUVs.
 
   ### Average price by vehicle type
-aggregate(Price_in_thousands ~ Vehicle_type, data = car_sales, FUN = mean)
+```r aggregate(Price_in_thousands ~ Vehicle_type, data = car_sales, FUN = mean)```
 
 ### Average horsepower by vehicle type
-aggregate(Horsepower ~ Vehicle_type, data = car_sales, FUN = mean) ```
+```r aggregate(Horsepower ~ Vehicle_type, data = car_sales, FUN = mean) ```
 
 ## 5. Recommendations
 Based on the findings from the data, I propose the following recommendations:

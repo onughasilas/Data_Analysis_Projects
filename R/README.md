@@ -26,6 +26,8 @@ I counted the number of cars by vehicle type using table() to understand the dis
 ## 4.1 Sales Distribution
 * What I did: I used a histogram to visualize the distribution of car sales (Sales_in_thousands).
 * Insight: Most car models sell in the lower range (below 50,000 units), with a few models having sales significantly higher than the average. This suggests a few "best-selling" cars drive a large portion of the overall sales, while the majority sell in smaller quantities.
+* 
+  ```r
 hist(car_sales$Sales_in_thousands, main = "Distribution of Car Sales", 
      xlab = "Sales in Thousands", col = "lightblue", border = "black")
   

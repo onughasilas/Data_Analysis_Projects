@@ -29,7 +29,7 @@ I counted the number of cars by vehicle type using table() to understand the dis
 * 
   ```r
 hist(car_sales$Sales_in_thousands, main = "Distribution of Car Sales", 
-     xlab = "Sales in Thousands", col = "lightblue", border = "black")
+     xlab = "Sales in Thousands", col = "lightblue", border = "black")```
   
 ## 4.2 Price vs Sales Relationship
 * What I did: I created a scatterplot to explore how the price of a car impacts sales (Price_in_thousands vs. Sales_in_thousands).

@@ -29,7 +29,7 @@ I counted the number of cars by vehicle type using table() to understand the dis
 * 
   ```r
 hist(car_sales$Sales_in_thousands, main = "Distribution of Car Sales", 
-     xlab = "Sales in Thousands", col = "lightblue", border = "black")```
+     xlab = "Sales in Thousands", col = "lightblue", border = "black")
   
 ## 4.2 Price vs Sales Relationship
 * What I did: I created a scatterplot to explore how the price of a car impacts sales (Price_in_thousands vs. Sales_in_thousands).
@@ -53,7 +53,7 @@ plot(car_sales$Price_in_thousands, car_sales$Sales_in_thousands,
 aggregate(Price_in_thousands ~ Vehicle_type, data = car_sales, FUN = mean)
 
 ### Average horsepower by vehicle type
-aggregate(Horsepower ~ Vehicle_type, data = car_sales, FUN = mean)
+aggregate(Horsepower ~ Vehicle_type, data = car_sales, FUN = mean) ```
 
 ## 5. Recommendations
 Based on the findings from the data, I propose the following recommendations:

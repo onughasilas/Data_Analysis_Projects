@@ -70,6 +70,11 @@ This analysis of the car sales dataset has provided valuable insights into how d
 ```r hist(car_sales$Sales_in_thousands, main = "Distribution of Car Sales", 
      xlab = "Sales in Thousands", col = "lightblue", border = "black")
 
+plot(car_sales$Price_in_thousands, car_sales$Sales_in_thousands, 
+     main = "Car Price vs Sales", xlab = "Price in Thousands", 
+     ylab = "Sales in Thousands", col = "blue", pch = 19)
+
+
 barplot(tapply(car_sales$Sales_in_thousands, car_sales$Vehicle_type, sum), 
         main = "Total Sales by Vehicle Type", xlab = "Vehicle Type", 
         ylab = "Total Sales in Thousands", col = "green")

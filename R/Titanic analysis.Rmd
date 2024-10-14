@@ -1,0 +1,184 @@
+---
+title: "Titanic Survival Analysis"
+author: "SILAS"
+date: "2024-10-13"
+output: html_document
+---
+First, let us install the pacakges
+```{r}
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("tidyverse")
+```
+
+
+let us load those packages as well
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+```
+
+
+step two , loading the dataset (train.csv)
+```{r}
+train<- read_csv("train.csv")
+```
+
+
+ step 3: inspecting the dataset
+```{r}
+head(train)
+view(train)
+str(train)
+colnames(train)
+names(train)
+summary(train)
+```
+
+Let us check for missing values
+```{r}
+missing_value<- is.na(train)
+missing_value
+```
+
+We can use this also,which will return the number of NA in each column
+```{r}
+colSums(is.na(train))
+```
+
+let remove the NA in age
+```{r}
+mean(train$Age,na.rm = TRUE)
+```
+
+To find the number of NA in each colunms of train 
+```{r}
+colSums(is.na(train))
+```
+
+to imput the missing numbers using median
+```{r}
+train$Age[is.na(train$Age)] <- median(train$Age, na.rm = TRUE)
+```
+
+
+ Fill missing Embarked values with the most frequent value "s"
+```{r}
+train$Embarked[is.na(train$Embarked)] <- "S"
+```
+ 
+To find the maximum,min, mean,mode and meadian age in the train
+```{r}
+max(train$Age,na.rm = TRUE)
+min(train$Age,na.rm = TRUE)
+mean(train$Age,na.rm = TRUE)
+median(train$Age,na.rm = TRUE)
+```
+
+To select Age, Name,Sex
+```{r}
+data<-train %>%
+  select(Age,Name,Sex) %>%
+  filter(Age>30 & Sex == "male")
+view (data)
+```
+
+TO FIND THE SURVIVAL RATE BY AGE, PCLASS,SEX
+```{r}
+# Survival rate by Gender
+survival_age<- train %>%
+               group_by(Sex) %>%
+               summarize(Survival_Rate = mean(Survived))
+
+view(survival_age)
+# Survival rate by Pclass
+train %>%
+  group_by(Pclass) %>%
+  summarize(Survival_Rate = mean(Survived))
+
+# Survival rate by Age Group
+train %>%
+  mutate(AgeGroup = cut(Age, breaks = seq(0, 80, by = 10))) %>%
+  group_by(AgeGroup) %>%
+  summarize(Survival_Rate = mean(Survived))
+
+# Survival rate by Embarked
+train %>%
+  group_by(Embarked) %>%
+  summarize(Survival_Rate = mean(Survived))
+
+```
+
+TO VISUALIZE THE DATA
+```{r}
+ggplot(train, aes(x = factor(Survived))) +
+  geom_bar(fill = "steelblue") +
+  labs(x = "Survived", y = "Count", title = "Survival Count")
+```
+
+OR I PREFER THIS SYNTAX BELOW
+
+```{r}
+# Load ggplot2 library
+library(ggplot2)
+
+# Create the bar plot
+ggplot(data = train) +
+  geom_bar(mapping = aes(x = factor(Survived)), fill = "steelblue") +
+  labs(
+    title = "Survival Count",      # Title of the plot
+    subtitle = "man",              # Subtitle of the plot
+    caption = "titanic",           # Caption of the plot
+    x = "Survived"                 # Label for the x-axis
+  )
+
+```
+ox plot for Age and Survival
+
+```{r}
+library(ggplot2)
+
+ggplot(data = train) +
+  geom_histogram(mapping = aes(x = Age), fill = "steelblue", bin = 30, color = "black") +
+  labs(
+    title = "Age Distribution by Survival",
+    subtitle = "Titanic Dataset",
+    caption = "Source: Titanic",
+    x = "Age",
+    y = "count"
+  )
+
+```
+
+
+PLOTING HISTOGRAM FOR AGE DISTRIBUTION
+```{r}
+ggplot(data = train) +
+  geom_boxplot(mapping = aes(x = factor(Survived), y = Age), fill = "steelblue") +
+  labs(
+    title = "Age Distribution by Survival",
+    subtitle = "Titanic Dataset",
+    caption = "Source: Titanic",
+    x = "Survived",
+    y = "Age"
+  )
+
+```
+
+```{r}
+# Bar plot for Gender and Survival
+
+library(ggplot2)
+
+ggplot(data = train) +
+  geom_bar(mapping = aes(x = Sex, fill = factor(Survived))) +
+  labs(
+    title = "Survival by Gender",
+    subtitle = "Titanic Dataset",
+    caption = "Source: Titanic",
+    x = "Sex",
+    y = "Count"
+  )
+
+```

@@ -1,0 +1,219 @@
+---
+title: "Titanic Survival Analysis"
+author: "SILAS"
+date: "2024-10-13"
+output:
+  pdf_document: default
+  html_document: default
+---
+First, let us install the pacakges
+```{r}
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("tidyverse")
+```
+
+
+let us load those packages as well
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+```
+
+
+step two , loading the dataset (train.csv)
+```{r}
+train<- read_csv("train.csv")
+```
+
+
+ step 3: inspecting the dataset
+```{r}
+head(train)
+view(train)
+str(train)
+colnames(train)
+names(train)
+summary(train)
+```
+
+Let us check for missing values
+```{r}
+missing_value<- is.na(train)
+missing_value
+```
+
+We can use this also,which will return the number of NA in each column
+```{r}
+colSums(is.na(train))
+```
+
+let remove the NA in age
+```{r}
+mean(train$Age,na.rm = TRUE)
+```
+
+To find the number of NA in each colunms of train 
+```{r}
+colSums(is.na(train))
+```
+
+to imput the missing numbers using median
+```{r}
+train$Age[is.na(train$Age)] <- median(train$Age, na.rm = TRUE)
+```
+
+
+ Fill missing Embarked values with the most frequent value "s"
+```{r}
+train$Embarked[is.na(train$Embarked)] <- "S"
+```
+ 
+To find the maximum,min, mean,mode and meadian age in the train
+```{r}
+max(train$Age,na.rm = TRUE)
+min(train$Age,na.rm = TRUE)
+mean(train$Age,na.rm = TRUE)
+median(train$Age,na.rm = TRUE)
+```
+
+To select Age, Name,Sex
+```{r}
+data<-train %>%
+  select(Age,Name,Sex) %>%
+  filter(Age>30 & Sex == "male")
+view (data)
+```
+
+TO FIND THE SURVIVAL RATE BY AGE, PCLASS,SEX
+```{r}
+# Survival rate by Gender
+survival_age<- train %>%
+               group_by(Sex) %>%
+               summarize(Survival_Rate = mean(Survived))
+
+view(survival_age)
+# Survival rate by Pclass
+train %>%
+  group_by(Pclass) %>%
+  summarize(Survival_Rate = mean(Survived))
+
+# Survival rate by Age Group
+train %>%
+  mutate(AgeGroup = cut(Age, breaks = seq(0, 80, by = 10))) %>%
+  group_by(AgeGroup) %>%
+  summarize(Survival_Rate = mean(Survived))
+
+# Survival rate by Embarked
+train %>%
+  group_by(Embarked) %>%
+  summarize(Survival_Rate = mean(Survived))
+
+```
+
+TO VISUALIZE THE DATA
+```{r}
+ggplot(train, aes(x = factor(Survived))) +
+  geom_bar(fill = "steelblue") +
+  labs(x = "Survived", y = "Count", title = "Survival Count")
+```
+
+OR I PREFER THIS SYNTAX BELOW
+
+```{r}
+# Load ggplot2 library
+library(ggplot2)
+
+# Create the bar plot
+ggplot(data = train) +
+  geom_bar(mapping = aes(x = factor(Survived)), fill = "steelblue") +
+  labs(
+    title = "Survival Count",      # Title of the plot
+    subtitle = "man",              # Subtitle of the plot
+    caption = "titanic",           # Caption of the plot
+    x = "Survived"                 # Label for the x-axis
+  )
+
+```
+ox plot for Age and Survival
+
+```{r}
+library(ggplot2)
+
+ggplot(data = train) +
+  geom_histogram(mapping = aes(x = Age), fill = "steelblue", bin = 30, color = "black") +
+  labs(
+    title = "Age Distribution by Survival",
+    subtitle = "Titanic Dataset",
+    caption = "Source: Titanic",
+    x = "Age",
+    y = "count"
+  )
+
+```
+
+
+PLOTING HISTOGRAM FOR AGE DISTRIBUTION
+```{r}
+ggplot(data = train) +
+  geom_boxplot(mapping = aes(x = factor(Survived), y = Age), fill = "steelblue") +
+  labs(
+    title = "Age Distribution by Survival",
+    subtitle = "Titanic Dataset",
+    caption = "Source: Titanic",
+    x = "Survived",
+    y = "Age"
+  )
+
+```
+
+```{r}
+# Bar plot for Gender and Survival
+
+library(ggplot2)
+
+ggplot(data = train) +
+  geom_bar(mapping = aes(x = Sex, fill = factor(Survived))) +
+  labs(
+    title = "Survival by Gender",
+    subtitle = "Titanic Dataset",
+    caption = "Source: Titanic",
+    x = "Sex",
+    y = "Count"
+  )
+
+```
+
+__Findings
+1. Survival by Gender
+The survival rate was significantly higher for females compared to males. Women had a much better chance of survival, indicating that women and children were prioritized during the evacuation.
+2. Survival by Passenger Class (Pclass)
+First-class passengers had the highest survival rates, followed by second-class and then third-class passengers. This suggests that social class played a major role in survival chances.
+3. Survival by Age
+Younger passengers, particularly children, had higher survival rates, especially those under the age of 10.
+Elderly passengers had a much lower survival rate compared to younger passengers.
+4. Survival by Embarked Location
+Passengers who embarked from different locations (e.g., Southampton, Cherbourg, and Queenstown) had varied survival rates. Those who embarked from Cherbourg had a slightly higher survival rate.
+Insights and Recommendations
+
+__Gender and Priority in Evacuation:
+
+The data clearly shows that women were given priority during evacuation. This highlights how societal norms and disaster response policies during the Titanic sinking played a significant role in determining who survived.
+
+__Recommendation: Future rescue operations in disasters should continue to prioritize vulnerable groups, such as women and children.
+Social Class Impact:
+
+First-class passengers had a higher likelihood of survival compared to other classes. This may have been due to better access to lifeboats or their location on the ship.
+Recommendation: In future ship designs or disaster planning, there should be equitable access to emergency exits and lifeboats, regardless of social class or ticket type.
+Young Age and Survival:
+
+Children had a higher survival rate, which likely reflects the "women and children first" evacuation policy.
+Recommendation: Disaster policies should ensure that children continue to receive priority in rescue situations.
+Embarkation Location:
+
+There were slight differences in survival rates based on the port of embarkation. This suggests that cabin locations tied to these ports may have influenced access to lifeboats.
+Recommendation: Further studies could examine the ship’s layout and how it influenced survival, to inform safer designs in the future.
+
+__Conclusion
+This analysis of the Titanic dataset provided valuable insights into the survival factors, demonstrating the influence of gender, age, passenger class, and embarkation location on survival rates. These findings can inform future disaster planning and rescue operations, ensuring more equitable access to survival resources.
